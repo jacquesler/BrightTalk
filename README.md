@@ -34,3 +34,19 @@ It is built using Play, akka and scala
 * Get Current Balance <br />
     localhost:9000/currentBalance/{username} <br />
     eg. localhost:9000/currentBalance/jacquesja
+
+## The system and limitations
+
+* I have used a mocked BankAccountDAO with a map as its backing store. The results are returned as futures to mimic long running transactions. Clearly the MockBankAccountDAO is no thread safe in of istelf but all interaction with it only happen through the actor sytem.
+* Most obvious limitaion, you dont have to use the prepulated users, when you deposit money for the first time you create a user that can be worked with. (You should be creating a user correctly) 
+* More Validation is needed for the inputs to make it more obvious where inpput was incorrect
+* 
+
+## Where to from here
+
+* I have enjoyed this exercise especially getting to try out Play.
+* I would have liked to add a login module which would create a session for a user (I would have created a User actor with Login, Logout)
+* Next A session actor would be populated. The session would timeout if the user does not interact with the system. This would end the session and the user would have to login again.
+* I would not have used the username of the user in my rest calls but the session token created when logging in and cross check it against the session
+* The system requires more unit and integration testing, espacially the end points, but I ran out of time for the exercise to do that
+* 
