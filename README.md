@@ -6,10 +6,11 @@ It is built using Play, akka and scala
 ## Installation and Running instructions in command promt
 
 * Clone repository
-* Run sbt in project direcotry (where build.sbt located)
+* Run sbt compile in project direcotry (where build.sbt located) to make sure everything is working 
+* Run just sbt to open sbt console
 * Make sure sbt and java are on your path
 * set SBT_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 (if you want to debug in Intelij) 
-* Once sbt console, type run
+* Once in the sbt console, type run
 * Navigate to localhost:9000 in a browser or using postman (this will compile using Play so might take a while)
 
 ## Using BrightTalkBank API
@@ -40,7 +41,6 @@ It is built using Play, akka and scala
 * I have used a mocked BankAccountDAO with a map as its backing store. The results are returned as futures to mimic long running transactions. Clearly the MockBankAccountDAO is no thread safe in of istelf but all interaction with it only happen through the actor sytem.
 * Most obvious limitaion, you dont have to use the prepulated users, when you deposit money for the first time you create a user that can be worked with. (You should be creating a user correctly) 
 * More Validation is needed for the inputs to make it more obvious where inpput was incorrect
-* 
 
 ## Where to from here
 
@@ -49,4 +49,3 @@ It is built using Play, akka and scala
 * Next A session actor would be populated. The session would timeout if the user does not interact with the system. This would end the session and the user would have to login again.
 * I would not have used the username of the user in my rest calls but the session token created when logging in and cross check it against the session
 * The system requires more unit and integration testing, espacially the end points, but I ran out of time for the exercise to do that
-* 
