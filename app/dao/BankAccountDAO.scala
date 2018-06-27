@@ -9,15 +9,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 case class Transaction(refNumber: UUID, amount: BigDecimal, datetime: LocalDateTime)
 case class Transactions(clientId: String, transactions: List[Transaction])
 case class TransactionComplete(clientId: String, refNumber: UUID)
-case class TransactionRejected(clientId: String, refNumber: UUID)
-case class Balance(clientId: String, amount: BigDecimal)
+case class TransactionBalance(clientId: String, amount: BigDecimal)
 
 trait BankAccountDAO {
 
   def deposit(amount: BigDecimal, clientId: String): Future[TransactionComplete]
   def withdraw(amount: BigDecimal, clientId: String): Future[TransactionComplete]
-  def listTransactions(clientId: String): Future[Transactions]
-  def getBalance(clientId: String): Future[Balance]
+  def listTransactions(number: Int, clientId: String): Future[Transactions]
+  def getBalance(clientId: String): Future[TransactionBalance]
   def isUser(clientId: String): Boolean
 }
 
@@ -38,8 +37,9 @@ case class MockBankAccountDAO() extends BankAccountDAO{
     TransactionComplete(clientId, refNumber)
   }
 
-  override def listTransactions(clientId: String): Future[Transactions] = Future{
-    Transactions(clientId, map.getOrElse(clientId, List()))
+  override def listTransactions(number: Int, clientId: String): Future[Transactions] = Future{
+    val lines = map.getOrElse(clientId, List()).take(number)
+    Transactions(clientId, lines)
   }
 
   override def withdraw(amount: BigDecimal, clientId: String): Future[TransactionComplete] = Future{
@@ -49,9 +49,9 @@ case class MockBankAccountDAO() extends BankAccountDAO{
     TransactionComplete(clientId, refNumber)
   }
 
-  override def getBalance(clientId: String): Future[Balance] = Future {
+  override def getBalance(clientId: String): Future[TransactionBalance] = Future {
     val transactions = map.getOrElse(clientId, List())
     val balance = transactions.foldLeft(BigDecimal(0))((r, c) => r + c.amount)
-    Balance(clientId, balance)
+    TransactionBalance(clientId, balance)
   }
 }

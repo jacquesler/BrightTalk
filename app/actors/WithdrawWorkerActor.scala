@@ -5,7 +5,7 @@ import java.util.UUID
 import actors.WithdrawWorkerActor.{InsufficientFunds, StartWithdraw, WithdrawSuccessful}
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import akka.pattern.pipe
-import dao.{Balance, BankAccountDAO, TransactionComplete}
+import dao.{TransactionBalance, BankAccountDAO, TransactionComplete}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -28,12 +28,13 @@ class WithdrawWorkerActor(bankAccountDAO: BankAccountDAO) extends Actor with Act
   }
 
   def waitingForBalance(orig: ActorRef, sw: StartWithdraw):Receive = {
-    case b:Balance => {
+    case b:TransactionBalance => {
       if(b.amount >= sw.amount){
         bankAccountDAO.withdraw(sw.amount, sw.clientId).pipeTo(self)(sender())
         context.become(waitingForWithdraw(orig))
       }else{
         sender() ! InsufficientFunds(sw.clientId, sw.amount, orig)
+        finish()
       }
     }
   }
