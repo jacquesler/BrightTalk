@@ -15,22 +15,22 @@ It is built using Play, akka and scala
 ## Using BrightTalkBank API
 
 * There are 4 actions we can take using the api for 2 users jacquesja or johndoe
-1. Deposit Money - This is a post so best to use postman
-  localhost:9000/deposit 
-  {
-	  "clientId" : "jacquesja",
-	  "amount" : 1000	
-  }
+* Deposit Money - This is a post so best to use postman <br />
+  localhost:9000/deposit  <br />
+  { <br />
+	  "clientId" : "jacquesja", <br />
+	  "amount" : 1000	 <br />
+  } <br />
 
-2. Withdraw Money - This is a post so best to use postman
-  localhost:9000/withdraw 
-  {
-	  "clientId" : "jacquesja",
-	  "amount" : 50
-  }
-3. Get latest transactions
-    localhost:9000/listTransactions/{username}/lines/{nr} 
-    eg. localhost:9000/listTransactions/jacquesja/lines/3 
-4. Get Current Balance
-    localhost:9000/currentBalance/{username}
+* Withdraw Money - This is a post so best to use postman <br />
+  localhost:9000/withdraw  <br />
+  { <br />
+	  "clientId" : "jacquesja", <br />
+	  "amount" : 50 <br />
+  } <br />
+* Get latest transactions <br />
+    localhost:9000/listTransactions/{username}/lines/{nr} <br />
+    eg. localhost:9000/listTransactions/jacquesja/lines/3  <br />
+* Get Current Balance <br />
+    localhost:9000/currentBalance/{username} <br />
     eg. localhost:9000/currentBalance/jacquesja
