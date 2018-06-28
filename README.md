@@ -41,6 +41,7 @@ It is built using Play, akka and scala
 * I have used a mocked BankAccountDAO with a map as its backing store. The results are returned as futures to mimic long running transactions. Clearly the MockBankAccountDAO is no thread safe in of istelf but all interaction with it only happen through the actor sytem.
 * Most obvious limitaion, you dont have to use the prepulated users, when you deposit money for the first time you create a user that can be worked with. (You should be creating a user correctly) 
 * More Validation is needed for the inputs to make it more obvious where inpput was incorrect
+* I could not get the  localhost:9000/listTransactions/jacquesja/lines/{nr} to ignore the {nr} and just bring back all the lines. That is something that must be worked on
 
 ## Where to from here
 
