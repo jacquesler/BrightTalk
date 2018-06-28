@@ -43,6 +43,7 @@ It is built using Play, akka and scala
 * Most obvious limitaion, you dont have to use the prepulated users, when you deposit money for the first time you create a user that can be worked with. (You should be creating a user correctly) 
 * More Validation is needed for the inputs to make it more obvious where inpput was incorrect
 * I could not get the  localhost:9000/listTransactions/jacquesja/lines/{nr} to ignore the {nr} and just bring back all the lines. That is something that must be worked on
+* There is no logging in the system at the moment, I picked priorities. It would definitely be something that is needed for debugging and production issues.
 
 ## Where to from here
 
@@ -51,3 +52,4 @@ It is built using Play, akka and scala
 * Next A session actor would be populated. The session would timeout if the user does not interact with the system. This would end the session and the user would have to login again.
 * I would not have used the username of the user in my rest calls but the session token created when logging in and cross check it against the session
 * The system requires more unit and integration testing, espacially the end points, but I ran out of time for the exercise to do that
+* After increasing testing and making sure we are happy with it, I would hook this up to Jenkins or Teamcity to satrt continious integration testing. From there we can move it through the different pipelines to create release candidates QA, UAT and Staging and finaly Production. Everything that is commited and passed tests should be treated as a potential release candidate.
