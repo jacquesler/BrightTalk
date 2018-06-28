@@ -16,6 +16,7 @@ It is built using Play, akka and scala
 ## Using BrightTalkBank API
 
 * There are 4 actions we can take using the api for 2 users jacquesja or johndoe
+* In the project aslo find 4 pictures of postman as examples
 * Deposit Money - This is a post so best to use postman <br />
   localhost:9000/deposit  <br />
   { <br />
